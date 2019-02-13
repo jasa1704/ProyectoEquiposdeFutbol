@@ -4,9 +4,9 @@ const mysql = require("mysql");
 // Conexión Base de Datos
 const con = mysql.createConnection({
    host: 'localhost',
-   user: 'root',
+   user: 'jhon',
    password: 'Bertaliamom199*',
-   database: 'prueba2'
+   database: 'prueba1'
 });
 
 con.connect(error => {
@@ -26,7 +26,7 @@ var app = express();
 
 app.get('/', function (req, res){
    
-   let query = "SELECT * FROM alumnos;";
+   let query = "SELECT * FROM equipos;";
    
    con.query(query, (error, result) => {
       if (error){
