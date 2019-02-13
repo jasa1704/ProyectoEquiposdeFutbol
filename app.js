@@ -1,10 +1,46 @@
-var express = require('express');
-var app = express();
+const express = require('express');
+const mysql = require("mysql");
 
-app.get('/', function (req, res) {
-  res.send('Hello World!');
+// Conexión Base de Datos
+const con = mysql.createConnection({
+   host: 'localhost',
+   user: 'root',
+   password: 'Bertaliamom199*',
+   database: 'prueba2'
 });
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+con.connect(error => {
+   if(error){
+     console.log('Error al conectarse a la base de datos');
+     return;
+   }
+
+   console.log('Conexion exitosa');
+});
+
+
+
+// Codigo
+
+var app = express();
+
+app.get('/', function (req, res){
+   
+   let query = "SELECT * FROM alumnos;";
+   
+   con.query(query, (error, result) => {
+      if (error){
+         console.log("Error en la consulta " + error);
+      }
+      
+      res.json({ code: 200, response: result});
+      
+      console.log(result);
+   });
+   
+   con.end(error => {});
+});
+
+app.listen(3000, function(){
+   console.log('Esta app esta corriendo!');
 });
